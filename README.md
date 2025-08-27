@@ -46,7 +46,7 @@ devops-cloud-infra-showcase/
 ```
 
 ## 🌐 Multi-Cloud
-- GCP (GKE, GCE, Cloud Storage, CloudSQL)
+- GCP (GKE, Cloud Storage, CloudSQL)
 - On-Prem (K3s + MetalLB + NFS)
 
 ## 🔄 GitOps & CI/CD
