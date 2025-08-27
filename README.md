@@ -14,9 +14,9 @@ This repository is a **comprehensive DevOps/Cloud Engineering showcase**, demons
 👉 Full details below ⬇️
 
 ## 📊 Architecture & Diagrams
-- [🔎 Detailed Architecture](./docs/detailed-architecture.md)
-- [🌐 High Level Architecture](./docs/high-level-architecture.md)
-- [🏗 Infrastructure Topology](./docs/infra-topology.md)
+- [🔎 Detailed Architecture](./docs/architecture-diagrams/detailed-architecture.md)
+- [🌐 High Level Architecture](./docs/architecture-diagrams/high-level-architecture.md)
+- [🏗 Infrastructure Topology](./docs/architecture-diagrams/infra-topology.md)
 
 ## 📂 Repository Structure
 ```bash
