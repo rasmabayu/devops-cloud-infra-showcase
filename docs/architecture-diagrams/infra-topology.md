@@ -1,56 +1,55 @@
-# 🏗 Infrastructure Topology
+## 🏗️ Infrastructure Topology
 
+```mermaid
 graph LR
-    subgraph DevOps[👨‍💻 DevOps Engineer]
-        IDE[💻 IDE] --> Git[(GitHub/GitLab)]
-    end
+    IDE[DevOps Engineer / IDE] --> Git[GitHub/GitLab]
 
-    subgraph CI[⚡ CI/CD]
+    subgraph CI["CI/CD"]
         Jenkins[Jenkins]
         GitHubActions[GitHub Actions]
         GitLabCI[GitLab CI]
     end
 
-    subgraph GitOps[🚀 GitOps]
+    subgraph GitOps["GitOps"]
         ArgoCD[ArgoCD]
     end
 
-    subgraph Clusters[☸️ Kubernetes Clusters]
-        GCP[GKE - GCP]
-        OnPrem[K8s - On-Prem]
+    subgraph Clusters["Kubernetes Clusters"]
+        GKE[GKE - GCP]
+        OnPrem[On-Prem K8s]
     end
 
-    subgraph Observability[📊 Observability]
+    subgraph Observability["Observability"]
         Prometheus[Prometheus]
         Grafana[Grafana]
         ELK[Elasticsearch + Kibana + Logstash]
         Loki[Loki]
     end
 
-    subgraph Security[🔒 Security]
+    subgraph Security["Security"]
         Vault[HashiCorp Vault]
         OPA[OPA Gatekeeper]
         Trivy[Trivy Scanner]
         SOPS[SOPS]
     end
 
-    subgraph FinOps[💰 Cost Management]
+    subgraph FinOps["Cost Management"]
         Kubecost[Kubecost]
     end
 
-    subgraph DR[💾 Disaster Recovery]
+    subgraph DR["Disaster Recovery"]
         Velero[Velero]
     end
 
     Git --> CI
     CI --> GitOps
-    GitOps --> GCP
+    GitOps --> GKE
     GitOps --> OnPrem
 
-    GCP --> Observability
-    GCP --> Security
-    GCP --> FinOps
-    GCP --> DR
+    GKE --> Observability
+    GKE --> Security
+    GKE --> FinOps
+    GKE --> DR
 
     OnPrem --> Observability
     OnPrem --> Security
