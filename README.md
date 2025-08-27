@@ -1,3 +1,4 @@
+<!-- Copyright (c) 2025 https://github.com/rasmabayu. All rights reserved. -->
 # DevOps & Cloud Infra Showcase 🚀
 
 ![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions%20%7C%20GitLab%20CI%20%7C%20Jenkins-blue?logo=githubactions&logoColor=white)
