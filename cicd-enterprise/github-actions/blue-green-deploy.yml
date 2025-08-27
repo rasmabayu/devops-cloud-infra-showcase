@@ -1,0 +1,23 @@
+name: Blue-Green Deployment
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & Push Image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/demo-app:${{ github.sha }} .
+          echo $CR_PAT | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+          docker push ghcr.io/${{ github.repository }}/demo-app:${{ github.sha }}
+      - name: Deploy Blue
+        run: kubectl apply -f k8s-gitops/base/deployments/app.yaml
+      - name: Health Check
+        run: echo "curl svc or e2e tests here"
+      - name: Switch Traffic
+        run: echo "kubectl patch ingress to route to blue"

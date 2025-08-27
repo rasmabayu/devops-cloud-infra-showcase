@@ -1,0 +1,9 @@
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: restore-apps
+  namespace: velero
+spec:
+  scheduleName: daily-backup
+  namespaceMapping:
+    apps: apps-restore

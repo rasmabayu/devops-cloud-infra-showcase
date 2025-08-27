@@ -1,0 +1,9 @@
+# Minimal Helm values untuk Elasticsearch (single node dev)
+replicas: 1
+esConfig:
+  elasticsearch.yml: |
+    xpack.security.enabled: false
+resources:
+  requests:
+    memory: 1Gi
+    cpu: 500m

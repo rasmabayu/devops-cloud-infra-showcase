@@ -1,0 +1,37 @@
+@Library('shared-lib') _
+
+pipeline {
+  agent any
+  options { timestamps() }
+  environment {
+    REGISTRY = "ghcr.io/rasmabayu/ultimate-devops-portfolio"
+    APP = "demo-app"
+    TAG = "${env.BUILD_NUMBER}"
+  }
+  stages {
+    stage('Checkout') {
+      steps { checkout scm }
+    }
+    stage('Build') {
+      steps { sh "docker build -t $REGISTRY/$APP:$TAG ." }
+    }
+    stage('Security Scan') {
+      steps { sh "trivy image --exit-code 0 $REGISTRY/$APP:$TAG || true" }
+    }
+    stage('Push') {
+      steps {
+        withCredentials([string(credentialsId: 'ghcr-token', variable: 'TOKEN')]) {
+          sh 'echo $TOKEN | docker login ghcr.io -u ${env.GIT_AUTHOR_NAME} --password-stdin'
+          sh "docker push $REGISTRY/$APP:$TAG"
+        }
+      }
+    }
+    stage('Deploy via GitOps') {
+      steps {
+        sh "yq -i '.images.demo_app.tag = \"$TAG\"' k8s-gitops/overlays/production/kustomization.yaml || true"
+        sh "git add . && git commit -m 'chore: bump image to $TAG' || true"
+        sh "git push origin HEAD:main || true"
+      }
+    }
+  }
+}

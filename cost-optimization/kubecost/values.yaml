@@ -1,0 +1,8 @@
+# Minimal values contoh untuk Kubecost
+global:
+  prometheus:
+    enabled: false
+    fqdn: "prometheus-k8s.monitoring.svc:9090"
+kubecostProductConfigs:
+  clusterName: "devops-portfolio"
+  currencyCode: IDR

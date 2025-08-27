@@ -1,0 +1,12 @@
+- hosts: k3s
+  become: yes
+  tasks:
+    - name: Install k3s (server on first host, agent on others)
+      shell: |
+        curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='server --write-kubeconfig-mode 644' sh -
+      when: inventory_hostname == groups['k3s'][0]
+
+    - name: Install k3s agent (join to first host)
+      shell: |
+        curl -sfL https://get.k3s.io | K3S_URL=https://{{ hostvars[groups['k3s'][0]]['ansible_host'] }}:6443 K3S_TOKEN={{ lookup('file', '/var/lib/rancher/k3s/server/node-token') }} sh -
+      when: inventory_hostname != groups['k3s'][0]
